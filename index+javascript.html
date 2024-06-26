@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>아침고요펜션</title>
+<style>
+	/*공통사항*/
+	* {padding:0; margin:0; box-sizing:border-box;}
+	html,body {font:10pt "나눔고딕"; color:#666;}
+	a {text-decoration:none; color:#666; display:block;}
+
+	#layout {width:1100px; margin:auto;}
+
+	/*상단*/
+	header {display:flex; height:200px; padding-top:50px; }
+	header div {flex:1;}
+	header div a {display:inline;}
+	header ul {list-style:none; display:flex; flex:2; line-height:250%; background:rgba(255,255,255, 0.9); position:relative; z-index:1; height:60px; overflow:hidden; transition:0.5s;}
+
+	header li {flex:1; text-align:center; position:relative; z-index: 1;}
+	
+	/*상단 메인메뉴*/
+	header li>a {font-size:1.2rem; font-weight:bold; padding:5px;}
+
+	/*상단 메인메뉴가 활성화 되었을 때 */
+	header li>a.active, header li>a:hover {background:#004f8a; color:white;}
+
+	/*상단 서브메뉴*/
+	header li nav {padding-top:10px; position:absolute; width:100%; /*display:none;*/  }
+
+	/*상단 서브메뉴가 활성화 되었을 때*/
+	header li nav a:hover {color:#1a85d5; font-weight:bold; font-size:1.2rem;}
+
+	/*슬라이드*/
+	#slide {overflow:hidden; position:relative;}
+	#slide h1 {position:absolute; background:rgba(255,255,255, 0.9); color:black; padding:30px 80px; line-height:170%; border-radius:20px; top:30%; left:30%; animation:big 2s both;}
+	
+	@keyframes big{
+		from {transform:scale(0.2); opacity:0;}
+		to   {transform:scale(1); opacity:1;}
+	}
+
+	#slide div {display:flex; width:3300px; position:relative; left:0; z-index:-1;}
+	#slide img {width:1100px;}
+
+	/*메인 (공지사항/파트너/배너) */
+	main {display:flex; margin-top:40px; position:relative;}
+	main h2	{padding-bottom:5px; border-bottom:1px solid #999; margin-bottom:20px;}
+	main a:hover	{color:dodgerblue; text-decoration:underline;}
+
+	#notice 	{flex:1;}
+	#notice ul 	{list-style:none; line-height:200%;}
+	#notice a 	{display:inline-block;}
+	#notice span {float:right;}
+
+	/*팝업*/
+	#popup 		{position:absolute; background:rgba(255,255,255, 0.9); width:600px; box-shadow:1px 1px 5px rgba(0,0,0, 0.6); padding:20px; border-radius:20px; left:calc((100% - 600px) / 2); top:-50px; display:none;}
+	#popup h2	{display:none;}
+	#popup img  {width:100%; display:block; margin:auto;}
+	#popup button {display:block; margin-top:20px; float:right;}
+
+	#partner 	  {flex:1; margin:0 60px;}
+	#partner img  {width:80%; display:block; margin:auto; margin-bottom:20px;}
+	#partner div  {width:80%; margin:auto; display:flex; justify-content:space-between; align-items:center;}
+	#partner section {flex-basis:130px; height:130px; border-radius:50%; background:#666; color:white;}
+	#partner h3 	 {font-size:1.1rem; margin-top:45px; text-align:center; line-height:130%;}
+
+	#partner li	     {border:0px solid pink; padding:3px 0;}
+	#partner ul a		{border-bottom:1px dashed transparent; display:inline-block;}
+	#partner ul a:hover	{text-decoration:none; border-bottom:1px dashed yellowgreen; color:yellowgreen;}
+
+	/*오른쪽 배너3개 */
+	#banner 	{flex:0.6; text-align:right; padding-top:30px; line-height:300%;}
+	#banner h2	{display:none;}
+	#banner a 	{transition:0.2s;}
+	#banner a:hover {transform:translateY(-5px); filter:sepia(100%);}
+
+	/* 하단 */
+	footer {background:#ddd; padding:20px; margin-top:50px;}
+	footer ul {display:flex; justify-content:space-between; list-style:none; line-height:180%;}
+	footer li:not(:first-child) a {display:inline-block;}
+	footer a:hover 	{color:black; text-decoration:underline;}
+</style>
+</head>
+<body>
+	<div id="layout">
+		<header>
+			<div>
+				<a href="http://naver.com" target="_blank" tabindex="1"><img src="images/logo.jpg" alt="로고"></a>
+			</div>
+			<ul>
+				<li>
+					<a href="#" tabindex="2">펜션소개</a>
+				</li>
+				<li>
+					<a href="#" tabindex="3">룸 미리보기</a>
+					<nav>
+						<a href="#" tabindex="4">사랑 하나</a>
+						<a href="#" tabindex="5">설렘 둘</a>
+						<a href="#" tabindex="6">아침 한스푼</a>
+						<a href="#" tabindex="7">고요 두스푼</a>
+					</nav>
+				</li>
+				<li>
+					<a href="#" tabindex="8">커뮤니티</a>
+					<nav>
+						<a href="#" tabindex="9">예약하기</a>
+						<a href="#" tabindex="10">문의하기</a>
+						<a href="#" id="last" tabindex="11">갤러리</a>
+					</nav>
+				</li>
+			</ul>
+		</header>
+		<section id="slide">
+			<h1>당신을 위한 힐링타임<br>아침고요펜션과 함께 하세요.</h1>
+			<div>
+				<img src="images/slide1.jpg" alt="펜션전경1">
+				<img src="images/slide2.jpg" alt="펜션전경2">
+				<img src="images/slide3.jpg" alt="펜션전경3">				
+			</div>
+		</section>
+		<main>
+			<section id="notice">
+				<h2>공지사항</h2>
+				<ul>
+					<li>
+						<a href="#" tabindex="12">진짜 아기랑 남편이랑 잘 쉬다 왔어요!!</a>
+						<span>2018-03-25</span>
+					</li>
+					<li>
+						<a href="#" tabindex="13">엄청 만족합니다~</a>
+						<span>2018-02-13</span>
+					</li>
+					<li>
+						<a href="#" tabindex="14">감사합니다.</a>
+						<span>2017-12-09</span>
+					</li>
+					<li>
+						<a href="#" tabindex="15">잘 쉬고 왔습니다^^</a>
+						<span>2017-08-19</span>
+					</li>
+					<li>
+						<a href="#" tabindex="16">3일간 머물고 왔습니다.</a>
+						<span>2017-05-26</span>
+					</li>
+					<li>
+						<a href="#" tabindex="17">가을에 한번 더 가려고 합니다.</a>
+						<span>2017-03-07</span>
+					</li>
+				</ul>
+			</section>
+			<section id="popup">
+				<h2>팝업배너</h2>
+				<img src="images/partner.jpg" alt="협력사">
+				<button type="button" tabindex="19">닫기</button>
+			</section>
+			<section id="partner">
+				<h2>협력사 콘텐츠</h2>
+				<a href="#" tabindex="18"><img src="images/partner.jpg" alt="협력사"></a>				
+				<div>
+					<section>
+						<h3>사계절 바베큐장<br>쿡TV & 와이파이</h3>
+					</section>
+					<ul>
+						<li><a href="#" tabindex="20">남이섬 짚 라인</a></li>
+						<li><a href="#" tabindex="21">쁘띠 프랑스</a></li>
+						<li><a href="#" tabindex="22">자라섬 재즈패스티벌</a></li>
+						<li><a href="#" tabindex="23">가평 사계절 썰매장</a></li>
+					</ul>
+				</div>
+			</section>
+			<section id="banner">
+				<h2>배너</h2>
+				<div>
+					<a href="#"><img src="images/icon1.png" alt="펜션 알림판"></a>
+					<a href="#"><img src="images/icon2.png" alt="펜션 행사일정"></a>
+					<a href="#"><img src="images/icon3.png" alt="사용자 이용규칙"></a>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<ul>
+				<li>
+					<a href="#">법적고지</a>
+					<a href="#">개인정보보호방침</a>
+					<a href="#">개인정보처리방침</a>
+				</li>
+				<li>
+					입금: 농협 302-1051-7449-71 최주희<br>
+					문의전화: 010-8949-1927<br>
+					이메일: <a href="#">master@mpension.co.kr</a><br>
+					주소: 지경기 가평군 상면 수목원로 380
+				</li>
+				<li>
+					상호명: 주식회사 비즈온네트웍스<br>
+					사업자등록번호: 244-87-00033<br>
+					대표자: 이희민<br>
+					사이트제작: <a href="#">비즈온네트웍스</a>
+				</li>
+			</ul>
+		</footer>
+	</div>
+
+<script>
+//main menu
+const headerLinks = document.querySelectorAll('header li > a');
+const headerNavs = document.querySelectorAll('header li nav');
+
+headerLinks.forEach(link => {
+    link.addEventListener('mouseenter', function() {
+        document.querySelector('header ul').style.height = '200px';
+        //headerNavs.forEach(nav => nav.style.display = 'none');
+        this.previousElementSibling.classList.remove('active');
+        this.classList.add('active');
+        this.nextElementSibling.style.display = 'block';
+    });
+
+    link.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default link behavior
+    });
+});
+
+document.querySelector('header ul').addEventListener('mouseleave', function() {
+    this.style.height = '60px';
+    //headerNavs.forEach(nav => nav.style.display = 'none');
+});
+
+document.querySelector('#last').addEventListener('blur', function() {
+    document.querySelector('header ul').style.height = '100px';
+    headerNavs.forEach(nav => nav.style.display = 'none');
+});
+
+//submenu
+const headerNavLinks = document.querySelectorAll('header li nav a');
+
+headerNavLinks.forEach(navLink => {
+    navLink.addEventListener('mouseenter', function() {
+        document.querySelectorAll('header li > a').forEach(link => link.classList.remove('active'));
+        this.parentElement.previousElementSibling.querySelector('a').classList.add('active');
+    });
+});
+
+
+//slide
+const slideArea = document.querySelector('#slide div');
+
+setInterval(morning, 2000);
+
+function morning() {
+    slideArea.style.transition = 'left 1.5s';
+    slideArea.style.left = '-1100px';
+    setTimeout(() => {
+        slideArea.appendChild(slideArea.firstElementChild);
+        slideArea.style.transition = 'none';
+        slideArea.style.left = '0';
+    }, 1900);
+}
+
+//popup
+document.querySelector('#partner h2 + a').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default link behavior
+    document.querySelector('#popup').style.display = 'block';
+});
+
+document.querySelector('#popup button').addEventListener('click', function() {
+    document.querySelector('#popup').style.display = 'none';
+});
+
+//partner
+const partnerLinks = document.querySelectorAll('#partner ul a');
+
+partnerLinks.forEach(link => {
+    link.addEventListener('mouseenter', function() {
+        this.parentElement.style.color = 'yellowgreen';
+    });
+
+    link.addEventListener('mouseleave', function() {
+        this.parentElement.style.color = '#666';
+    });
+});
+
+
+</script>
+</body>
+</html>
